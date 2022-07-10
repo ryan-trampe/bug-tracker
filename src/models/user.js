@@ -17,11 +17,7 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
-const userCreate = (username, hashedPass) => {
-  const newUser = new User({
-    name: username,
-    password: hashedPass,
-  });
+const userCreate = (newUser) => {
   newUser.save().catch((err) => console.log(err));
 };
 

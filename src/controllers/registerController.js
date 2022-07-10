@@ -14,10 +14,18 @@ const registerUser = (req, res) => {
     password: password,
   });
   // Check if this user already exists in the database
-  const dbQuery = userRead(newUser);
-  console.log(dbQuery);
-  // if not, create new document with user information
-  newUser.save().then(res.redirect(200, "/"));
+  const dbQuery = userRead(newUser).then((user) => {
+    console.log(user);
+    if (user) {
+      console.log("email exists");
+      res.redirect("/login");
+    } else {
+      // if not, create new document with user information
+      console.log("creating user");
+      userCreate(newUser);
+      res.redirect("/login");
+    }
+  });
 };
 
 module.exports = {
