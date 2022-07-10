@@ -23,12 +23,10 @@ mongoose
   .then(() => console.log("database connected"))
   .catch((err) => console.log("DB error:" + err));
 
-
 // parse application/x-www-form-urlencoded
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 // parse json
 app.use(express.json());
-  
 
-app.use("/",require("./routes/routes"));
+app.use("/", require("./routes/routes"));
 app.listen(PORT);
