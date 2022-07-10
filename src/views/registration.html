@@ -20,19 +20,21 @@
         <div class="card">
           <div class="card-header">Registration</div>
           <div class="card-body">
-            <form>
+            <form action="/register" method="post">
               <div class="mb-3">
-                <label for="inputUser" class="form-label">User</label>
+                <label for="username" class="form-label">User</label>
                 <input
                   type="text"
                   class="form-control"
                   id="inputUser"
                   aria-describedby="emailHelp"
+                  name="username"
+                  id="username"
                 />
               </div>
               <div class="mb-3">
-                <label for="inputPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="inputPassword" />
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password" />
               </div>
               <button type="submit" class="btn btn-primary">Register</button>
             </form>

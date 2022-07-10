@@ -10,10 +10,6 @@ try {
 
 // packages
 const express = require("express");
-const bodyParser = require("body-parser");
-const path = require("path");
-const https = require("https");
-const http = require("http");
 const mongoose = require("mongoose");
 
 const app = express();
@@ -27,12 +23,12 @@ mongoose
   .then(() => console.log("database connected"))
   .catch((err) => console.log("DB error:" + err));
 
-// app.use("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "views/login.html"));
-// });
+
+// parse application/x-www-form-urlencoded
+app.use(express.urlencoded({extended:true}));
+// parse json
+app.use(express.json());
+  
 
 app.use("/",require("./routes/routes"));
-
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.listen(PORT, HOST);
+app.listen(PORT);
