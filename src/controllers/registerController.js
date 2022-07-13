@@ -1,9 +1,8 @@
 const path = require("path");
 const bcrypt = require("bcryptjs");
 const { User, userCreate, userRead } = require("../models/user");
-const { userCheck, userEncrypt } = require("../controllers/userCheck");
 
-const saltRounds = 56;
+const saltRounds = 10;
 
 // Sending registration view
 const registerView = (req, res) => {
@@ -17,7 +16,7 @@ const registerUser = (req, res) => {
     password: req.body.password,
   });
   // Check if this user already exists in the database
-  const dbQuery = userRead(newUser).then((user) => {
+  userRead(newUser).then((user) => {
     console.log(user);
     if (user) {
       console.log("email exists");
@@ -26,14 +25,13 @@ const registerUser = (req, res) => {
       // if not, create new document with user information
       console.log("creating user");
       // encrypt password
-      bcrypt.genSalt(saltRounds, (err, salt) => {
-        bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
-          if (err) console.log("Error Hashing: ", err);
-          else newUser.password = hash;
-          console.log(hash);
-        });
-      });
-      userCreate(newUser);
+      bcrypt.genSalt(saltRounds, (err,salt) => {
+        bcrypt.hash(newUser.password,salt,(err,hash) => {
+          newUser.password = hash;
+          console.log("Hashed pass:",newUser.password);
+          userCreate(newUser);
+        })
+      })
       res.redirect("/login");
     }
   });
