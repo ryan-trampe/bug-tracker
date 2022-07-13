@@ -7,9 +7,16 @@ const loginView = (req, res) => {
 
 const loginUser = (req,res) => {
   const { username,password } = req.body;
-  const dbQuer = userRead()
-}
+  const userInfo = new User({
+    name: username,
+    password, password,
+  });
+  const dbQuery = userRead(userInfo).then((user) => {
+    console.log(user);
+  });
+};
 
 module.exports = {
   loginView,
+  loginUser
 };
